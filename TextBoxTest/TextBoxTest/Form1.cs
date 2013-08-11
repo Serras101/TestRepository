@@ -12,6 +12,8 @@ namespace TextBoxTest
 {
     public partial class Form1 : Form
     {
+        private const string OCCUPATIONS_TEXT_FILE_PATH = "../../Occupations.txt";
+
         public Form1()
         {
             InitializeComponent();
@@ -30,7 +32,51 @@ namespace TextBoxTest
             this.txtName.TextChanged += new System.EventHandler(this.txtBox_TextChanged);
             this.txtAddress.TextChanged += new System.EventHandler(this.txtBox_TextChanged);
             this.txtAge.TextChanged += new System.EventHandler(this.txtBox_TextChanged);
+            this.cboOccupation.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboOccupation_KeyDown);
+            this.Disposed += new EventHandler(this.formDisposed);
 
+            //Fill the ComboBox
+            LoadOccupations();
+        }
+
+        private void formDisposed(object sender, EventArgs e)
+        {
+            //Save the items currently in the ComboBox
+            SaveOccupation();
+        }
+
+        /*
+        protected override void Dispose(bool disposing)
+        {
+            //Save the items currently in the ComboBox
+            SaveOccupation();
+
+            base.Dispose(disposing);
+            if (components != null)
+                components.Dispose();
+        }
+         * */
+
+        private void cboOccupation_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            int index = 0;
+            ComboBox cbo = (ComboBox)sender;
+
+            //Only do something if the ENTER key was pressed.
+            if (e.KeyCode == Keys.Enter)
+            {
+                index = cbo.FindStringExact(cbo.Text);
+                if (index == -1)
+                {
+                    cbo.Items.Add(cbo.Text);
+                }
+                else
+                {
+                    cbo.SelectedIndex = index;
+                }
+
+                e.Handled = true;
+            }
         }
 
         private void txtBox_TextChanged(object sender, System.EventArgs e)
@@ -42,7 +88,7 @@ namespace TextBoxTest
             }
             catch (InvalidCastException)
             {
-                throw new InvalidOperationException("A non Textbox object has called a Textbox specific event handler.");
+                throw new InvalidOperationException("A non Textbox object has called a Textbox-specific event handler.");
             }
 
             if (tb.Text.Length == 0)
@@ -83,7 +129,7 @@ namespace TextBoxTest
             }
             catch (InvalidCastException)
             {
-                throw new InvalidOperationException("A non Textbox object has called a Textbox specific event handler.");
+                throw new InvalidOperationException("A non Textbox object has called a Textbox-specific event handler.");
             }
 
             if (tb.Text.Length == 0)
@@ -109,7 +155,7 @@ namespace TextBoxTest
 
             output.Append("Name: " + this.txtName.Text + Environment.NewLine);
             output.Append("Address: " + this.txtAddress.Text + Environment.NewLine);
-            output.Append("Occupation: " + (string)(this.chkProgrammer.Checked ? "Programmer" : "Not a programmer") + Environment.NewLine);
+            output.Append("Occupation: " + this.cboOccupation.Text + Environment.NewLine);
             output.Append("Sex: " + (string)(this.rdoFemale.Checked ? "Female" : "Male") + Environment.NewLine);
             output.Append("Age: " + this.txtAge.Text);
 
@@ -122,11 +168,57 @@ namespace TextBoxTest
 
             output.Append("Name = Your name" + Environment.NewLine);
             output.Append("Address = Your address" + Environment.NewLine);
-            output.Append("Programmer = Check 'Programmer' if you are a programmer" + Environment.NewLine);
             output.Append("Sex = Choose your sex" + Environment.NewLine);
             output.Append("Age = Your age");
 
             this.txtOutput.Text = output.ToString();
+        }
+
+        private void LoadOccupations()
+        {
+            System.IO.StreamReader sr = null;
+            try
+            {
+                sr = new System.IO.StreamReader(OCCUPATIONS_TEXT_FILE_PATH);
+                string input;
+
+                do
+                {
+                    input = sr.ReadLine();
+                    if (input != "")
+                        this.cboOccupation.Items.Add(input);
+                } while (sr.Peek() != -1);
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                MessageBox.Show("Error: Occupations.txt could not be found.");
+            }
+            finally
+            {
+                if (sr != null)
+                    sr.Close();
+            }
+        }
+
+        private void SaveOccupation()
+        {
+            System.IO.StreamWriter sw = null;
+            try
+            {
+                sw = new System.IO.StreamWriter(OCCUPATIONS_TEXT_FILE_PATH);
+                foreach (string item in this.cboOccupation.Items)
+                    sw.WriteLine(item);
+                sw.Flush();
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                MessageBox.Show("Error: Occupations.txt not found or has been moved.");
+            }
+            finally
+            {
+                if (sw != null)
+                    sw.Close();
+            }
         }
     }
 }

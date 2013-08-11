@@ -39,9 +39,10 @@
             this.btnOK = new System.Windows.Forms.Button();
             this.btnHelp = new System.Windows.Forms.Button();
             this.groupSex = new System.Windows.Forms.GroupBox();
-            this.rdoFemale = new System.Windows.Forms.RadioButton();
             this.rdoMale = new System.Windows.Forms.RadioButton();
-            this.chkProgrammer = new System.Windows.Forms.CheckBox();
+            this.rdoFemale = new System.Windows.Forms.RadioButton();
+            this.cboOccupation = new System.Windows.Forms.ComboBox();
+            this.lblOccupation = new System.Windows.Forms.Label();
             this.groupSex.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -166,6 +167,16 @@
             this.groupSex.TabStop = false;
             this.groupSex.Text = "Sex";
             // 
+            // rdoMale
+            // 
+            this.rdoMale.AutoSize = true;
+            this.rdoMale.Location = new System.Drawing.Point(124, 17);
+            this.rdoMale.Name = "rdoMale";
+            this.rdoMale.Size = new System.Drawing.Size(48, 17);
+            this.rdoMale.TabIndex = 1;
+            this.rdoMale.Text = "Male";
+            this.rdoMale.UseVisualStyleBackColor = true;
+            // 
             // rdoFemale
             // 
             this.rdoFemale.AutoSize = true;
@@ -178,34 +189,30 @@
             this.rdoFemale.Text = "Female";
             this.rdoFemale.UseVisualStyleBackColor = true;
             // 
-            // rdoMale
+            // cboOccupation
             // 
-            this.rdoMale.AutoSize = true;
-            this.rdoMale.Location = new System.Drawing.Point(124, 17);
-            this.rdoMale.Name = "rdoMale";
-            this.rdoMale.Size = new System.Drawing.Size(48, 17);
-            this.rdoMale.TabIndex = 1;
-            this.rdoMale.Text = "Male";
-            this.rdoMale.UseVisualStyleBackColor = true;
+            this.cboOccupation.FormattingEnabled = true;
+            this.cboOccupation.Location = new System.Drawing.Point(102, 168);
+            this.cboOccupation.Name = "cboOccupation";
+            this.cboOccupation.Size = new System.Drawing.Size(174, 21);
+            this.cboOccupation.TabIndex = 13;
             // 
-            // chkProgrammer
+            // lblOccupation
             // 
-            this.chkProgrammer.AutoSize = true;
-            this.chkProgrammer.Checked = true;
-            this.chkProgrammer.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkProgrammer.Location = new System.Drawing.Point(19, 169);
-            this.chkProgrammer.Name = "chkProgrammer";
-            this.chkProgrammer.Size = new System.Drawing.Size(82, 17);
-            this.chkProgrammer.TabIndex = 13;
-            this.chkProgrammer.Text = "Programmer";
-            this.chkProgrammer.UseVisualStyleBackColor = true;
+            this.lblOccupation.AutoSize = true;
+            this.lblOccupation.Location = new System.Drawing.Point(20, 171);
+            this.lblOccupation.Name = "lblOccupation";
+            this.lblOccupation.Size = new System.Drawing.Size(62, 13);
+            this.lblOccupation.TabIndex = 14;
+            this.lblOccupation.Text = "Occupation";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(373, 400);
-            this.Controls.Add(this.chkProgrammer);
+            this.Controls.Add(this.lblOccupation);
+            this.Controls.Add(this.cboOccupation);
             this.Controls.Add(this.groupSex);
             this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.btnOK);
@@ -242,7 +249,8 @@
         private System.Windows.Forms.GroupBox groupSex;
         private System.Windows.Forms.RadioButton rdoMale;
         private System.Windows.Forms.RadioButton rdoFemale;
-        private System.Windows.Forms.CheckBox chkProgrammer;
+        private System.Windows.Forms.ComboBox cboOccupation;
+        private System.Windows.Forms.Label lblOccupation;
     }
 }
 
